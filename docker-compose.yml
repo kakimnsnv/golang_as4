@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: 'kakimbekn'
+      POSTGRES_PASSWORD: 'Sadasa2015'
+      POSTGRES_DB: 'as4'
+    ports:
+      - '5432:5432'
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus-as44
+    volumes: 
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana-as44
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
+    
+
+volumes:
+  pg-data:
+
+networks:
+  monitoring:
+    driver: bridge

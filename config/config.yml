@@ -1,0 +1,17 @@
+app:
+  name: "golang-kbtu asignment 4"
+  version: "1.0.0"
+
+http:
+  port: ":8080"
+
+log:
+  level: "debug"
+
+postgres:
+  pool_max: 3
+  dsn: "postgres://kakimbekn:Sadasa2015@localhost:5432/as4"
+
+auth:
+  jwt: "secret"
+  csrf: "secret"
